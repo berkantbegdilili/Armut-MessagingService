@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  messaging-service:
+    container_name: messaging-service
+    build: .
+    command: npm start
+    volumes:
+      - .:/armut/messaging-service/
+      - /armut/messaging-service/node_modules
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+    environment:
+      DATABASE_URL: mongodb://admin:armut@mongo:27017
+  mongo:
+    image: mongo:4.4.6
+    container_name: mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: armut
