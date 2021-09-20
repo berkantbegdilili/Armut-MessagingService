@@ -46,4 +46,5 @@ server.listen(PORT, () => {
 
 process.on('SIGINT', function() {
     console.log('Server SIGINT');
+    process.exit(0);
 });
