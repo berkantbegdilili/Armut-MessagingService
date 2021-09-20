@@ -1,0 +1,12 @@
+{
+  "name": "armut-messagingservice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Berkant BEGDILILI",
+  "license": "ISC"
+}
