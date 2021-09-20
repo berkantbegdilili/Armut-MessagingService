@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-
 const mainSchema = mongoose.Schema({
     username: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true },
-    conversations: [ { type: String, ref: 'Conversation'} ]
+    conversations: { type: [ { type: String, ref: 'Conversation'} ] , default: [] }
 }, {
     timestamp: true,
     versionKey: false,
