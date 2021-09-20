@@ -47,6 +47,11 @@ server.listen(PORT, () => {
 });
 
 process.on('SIGINT', function() {
-    console.log('Server SIGINT');
-    process.exit(0);
+    db.mongoose.connection.close()
+        .then(() => {
+            process.exit(0);
+        })
+        .catch(() => {
+            process.exit(1);
+        });
 });
