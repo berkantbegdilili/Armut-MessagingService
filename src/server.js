@@ -6,6 +6,8 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 
+const db = require('./models');
+
 app.use(function (req, res, next) {
     res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.set('Pragma', 'no-cache');
