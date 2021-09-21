@@ -2,11 +2,10 @@ const mongoose = require('mongoose');
 
 const mainSchema = mongoose.Schema({
     _id: { type: String, required: true },
-    userId1: { type: mongoose.SchemaTypes.ObjectId, required: true },
-    userId2: { type: mongoose.SchemaTypes.ObjectId, required: true },
-    lastMessageId: { type: mongoose.SchemaTypes.ObjectId },
+    users: { type: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'User', required: true }], default: [] },
+    lastMessage: { type: mongoose.SchemaTypes.ObjectId, ref: 'Message' },
 }, {
-    timestamp: true,
+    timestamps: true,
     versionKey: false,
     id: false,
     toJSON:{ 

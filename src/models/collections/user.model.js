@@ -6,7 +6,7 @@ const mainSchema = mongoose.Schema({
     password: { type: String, required: true },
     conversations: { type: [ { type: String, ref: 'Conversation'} ] , default: [] }
 }, {
-    timestamp: true,
+    timestamps: true,
     versionKey: false,
     id: false,
     toJSON:{ 
