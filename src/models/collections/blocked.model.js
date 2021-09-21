@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const mainSchema = mongoose.Schema({
-    blockerId: { type: mongoose.SchemaTypes.ObjectId, required: true },
-    blockedId: { type: mongoose.SchemaTypes.ObjectId, required: true }
+    blockerId: { type: mongoose.SchemaTypes.ObjectId, ref: 'User', required: true },
+    blockedId: { type: mongoose.SchemaTypes.ObjectId, ref: 'User', required: true }
 }, {
-    timestamp: true,
+    timestamps: true,
     versionKey: false,
     id: false,
     toJSON:{ 
