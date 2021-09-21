@@ -37,9 +37,7 @@ app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-    res.send('Server test');
-});
+require('./routes')(app);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
