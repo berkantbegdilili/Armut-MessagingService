@@ -6,20 +6,36 @@ services:
     build: .
     command: npm start
     volumes:
-      - .:/armut/messaging-service/
-      - /armut/messaging-service/node_modules
+      - .:/usr/armut/messaging-service/
+      - /usr/armut/messaging-service/node_modules
     ports:
-      - 3000:3000
+      - 3003:3000
     depends_on:
       - mongo
+      - redis
     environment:
-      DATABASE_URL: mongodb://admin:armut@mongo:27017
+      PORT: 3000
+      DATABASE_URL: mongodb://berkant:armut@mongo:27017/MessagingService
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: armut
   mongo:
     image: mongo:4.4.6
     container_name: mongodb
     restart: always
     ports:
       - 27017:27017
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: armut
+
+  redis:
+    image: redis:6.2.4-alpine
+    container_name: redis
+    command: redis-server --appendonly yes --requirepass armut
+    ports:
+      - 6379:6379
+    environment:
+      - REDIS_REPLICATION_MODE=master
