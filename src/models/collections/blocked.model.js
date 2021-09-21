@@ -15,6 +15,18 @@ const mainSchema = mongoose.Schema({
     }
 });
 
+mainSchema.virtual('blocker', {
+    ref: 'User', 
+    localField: 'blockerId', 
+    foreignField: '_id',
+});
+
+mainSchema.virtual('blocked', {
+    ref: 'User', 
+    localField: 'blockedId', 
+    foreignField: '_id',
+});
+
 const Blocked = mongoose.model("Blocked", mainSchema);
 
 module.exports = {
