@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
 const mainSchema = mongoose.Schema({
     conversationId: { type: String, ref: 'Conversation', required: true },
-    userId: { type: mongoose.SchemaTypes.ObjectId, required: true },
+    userId: { type: mongoose.SchemaTypes.ObjectId, ref: 'User', required: true },
     text: { type: String, required: true }
 }, {
-    timestamp: true,
+    timestamps: true,
     versionKey: false,
     id: false,
     toJSON:{ 
@@ -17,22 +16,7 @@ const mainSchema = mongoose.Schema({
     }
 });
 
-mainSchema.index({ text: 'text', chatId: 1, userId: 1 });
-
-mainSchema.pre('save', async function save(next) {
-    if (!this.isModified('text')) return next();
-    try {
-      const salt = await bcrypt.genSalt(10);
-      this.text = await bcrypt.hash(this.text, salt);
-      return next();
-    } catch (err) {
-      return next(err);
-    }
-});
-
-mainSchema.methods.validateText = async function validateText(data) {
-    return bcrypt.compare(data, this.text);
-};
+mainSchema.index({ text: 'text', conversationId: 1, userId: 1 });
 
 const Message = mongoose.model("Message", mainSchema);
 
