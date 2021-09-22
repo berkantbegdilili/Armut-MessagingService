@@ -9,7 +9,7 @@ services:
       - .:/usr/armut/messaging-service/
       - /usr/armut/messaging-service/node_modules
     ports:
-      - 3003:3000
+      - 3000:3000
     depends_on:
       - mongo
       - redis
