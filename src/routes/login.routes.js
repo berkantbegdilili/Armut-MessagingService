@@ -5,5 +5,5 @@ module.exports = app => {
 
     router.post("/", Auth.login);
 
-    app.use('/v1/auth', router);
+    app.use('/v1/login', router);
 }
