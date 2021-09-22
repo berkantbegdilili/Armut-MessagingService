@@ -62,6 +62,7 @@ exports.checkAuth = (req, res, next) => {
                     message: "Authorization failed."
                 });
             
+            req.session.user = payload;
             req.userData = payload;
             next();
         });
