@@ -24,6 +24,18 @@ exports.create = (req, res) => {
     .catch(err => res.status(500).send({ message: err.message }));
 }
 
+exports.delete = (req, res) => {
+    const { id } = req.params;
+
+    if (!id)
+        return res.status(400).send({ message: 'The identifier cannot be left blank.' }); 
+        
+    Blockeds
+    .findByIdAndRemove(id)
+    .then(() => res.send({ message: 'Blocked was deleted successfully.' }))
+    .catch(err => res.status(500).send({ message: err.message }));
+}
+
 exports.findAllWithBlockerId = (req, res) => {
     const { blockerId } = req.query;
 
