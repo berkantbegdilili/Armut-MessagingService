@@ -6,6 +6,7 @@ module.exports = app => {
 
     router.get('/', checkAuth, Blockeds.findAllWithBlockerId);
     router.post('/', checkAuth, Blockeds.create);
+    router.delete('/:id', checkAuth, Blockeds.delete);
     
     app.use('/v1/blockeds', router);
 }
