@@ -3,6 +3,25 @@ const Messages = db.Messages;
 
 const ConversationController = require('./conversation.controller');
 
+exports.createWithSocket = (conversationId, userId, text) => {
+    const message = new Messages({ 
+        conversationId: conversationId,
+        userId: userId,
+        text: text
+    });
+
+    return message
+    .save(message)
+    .then(data => {
+        ConversationController.updateLastMessage(conversationId, data._id)
+        .then(data => data)
+        .catch(err => err)
+    })
+    .catch(err => {
+        return { statusCode: 500, message: err.message } ;
+    });
+};
+
 exports.create = (req, res) => {
     const { conversationId, userId, text } = req.body;
 
